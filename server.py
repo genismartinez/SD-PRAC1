@@ -13,10 +13,16 @@ conn = None
 # ------------------------------ MERGING FUNCTIONS ------------------------------ #
 
 def process_meteo_data(meteo_data):
-    
+    global id
+    global conn
+    response = tasks.process_meteo_data(meteo_data)
+    return response
 
 def process_pollution_data(pollution_data):
-
+    global id
+    global conn
+    response = tasks.process_pollution_data(pollution_data)
+    return response
 
 
 # -------------------------------------- MAIN -------------------------------------- #
