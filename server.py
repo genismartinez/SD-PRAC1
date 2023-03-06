@@ -4,11 +4,11 @@
 # -------------------------------------- #
 
 import json
-import redis
-import tasks
+import redis    # We import the redis library
+import tasks    # We import the tasks library
 
-id = None
-conn = None
+id = None       # We define the id variable
+conn = None     # We define the conn variable
 
 # ------------------------------ MERGING FUNCTIONS ------------------------------ #
 
@@ -33,9 +33,9 @@ def start_server(x):
     conn = redis.StrictRedis(host='localhost', port=6379, db=0)
 
     while True:
-       job = str(conn.blpop('task_queue')).split("'")[3]
-       id = str(conn.blpop('task_queue')).split("'")[1]
-       argument = str(conn.blpop('arg_queue')).split("'")[3]
+       job = str(conn.blpop('task_queue')).split("'")[3]    # We get the task
+       id = str(conn.blpop('task_queue')).split("'")[1]     # We get the id
+       argument = str(conn.blpop('arg_queue')).split("'")[3]    # We get the argument
 
        # We execute the task and we save the result in the database
 

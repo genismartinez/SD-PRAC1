@@ -8,9 +8,9 @@ import os
 
 # ---------------------------- Connex Establishment ----------------------------- #
 
-s = xmlrpc.client.ServerProxy('http://localhost:8005')
+s = xmlrpc.client.ServerProxy('http://localhost:8005')  # We create the server proxy
 
-TASKS_ID = []
+TASKS_ID = []   # We create the list of tasks
 
 #---------------------------------- SWITCH OPTIONS ------------------------------ #
 def choose_task():
@@ -37,45 +37,45 @@ def read_result():
 
     print("Created tasks by ID:")
     for tsk in TASKS_ID:
-        print(tsk)
+        print(tsk)  # Print the list of tasks
 
     selected = input("Select the task to know the result: ")
-    ret_val = s.read_result(selected)
-    if ret_val == -1:
-        print("\nThe result of the task with id ",selected," is:\n",ret_val)
+    ret_val = s.read_result(selected)   # We read the result of the task with id = selected
+    if ret_val == -1:   # If the task has not finished yet, we print an error message
+        print("\nThe result of the task with id ",selected," is:\n",ret_val)    # We print the result
     else:
-        print("\nError: No job founf with id ",selected,". It is possible that the job has not finished yet.\n")
+        print("\nError: No job founf with id ",selected,". It is possible that the job has not finished yet.\n")    # We print the result
 
 
 def add_server():
     print ("******************************************")
     print ("*                                        *")
-    print ("*               Add Worker               *")
+    print ("*               Add Server               *")
     print ("*                                        *")
     print ("******************************************\n")
-    print(s.add_server())
+    print(s.add_server())   # We add a new server
 
 def rem_server():
     print ("******************************************")
     print ("*                                        *")
-    print ("*             Remove Worker              *")
+    print ("*             Remove Server              *")
     print ("*                                        *")
     print ("******************************************\n")
 
-    print ("Active worker IDs:")
-    print(s.list_server())
+    print ("Active server IDs:")
+    print(s.list_server())  # We print the list of active servers
     print("\nWrite the IDs of the target workers (separated by space):")
-    target = input()
+    target = input()    # We read the target server
 
-    print(s.remove_server(target))    #Falta argument.
+    print(s.remove_server(target))    # We remove the target server
 
 def print_servers():
     print ("******************************************")
     print ("*                                        *")
-    print ("*              List Worker               *")
+    print ("*              List Server               *")
     print ("*                                        *")
     print ("******************************************\n")
-    print(s.list_server())
+    print(s.list_server())  # We print the list of active servers
 
 def invalid_option():
     print ("******************************************")
@@ -85,7 +85,8 @@ def invalid_option():
     print ("******************************************\n")
     print("Please, select a valid option.\n")
 
-switch_options = {
+# ------------------------------ SWITCH OPTIONS ----------------------------- #
+switch_options = {      # We create a dictionary with the options
     '1': choose_task,
     '2': add_server,
     '3': print_servers(),
@@ -93,10 +94,11 @@ switch_options = {
     '5': read_result
 }
 
+# ------------------------------------ CLEAR -------------------------------- #
 def wipe_screen():
     os.system('clear')
 
-# ---------------------------------------- MAIN -----------------------------------#
+# ------------------------------------ MAIN -----------------------------------#
 
 def show_menu():
     print("******************************************")
@@ -118,12 +120,12 @@ def show_menu():
 
     choice = -1
     while (choice != 0):
-        show_menu()
-        choice = input('Your choice: ')
-        wipe_screen()
+        show_menu()    # We show the menu
+        choice = input('Your choice: ')   # We ask the user for a choice
+        wipe_screen()   # We clear the screen
 
-        switch_options.get(choice, invalid_option)()
+        switch_options.get(choice, invalid_option)()    # We execute the function associated to the choice
         input('\nPress any key to continue...')
-        wipe_screen()
+        wipe_screen()   # We clear the screen
 
     print("Shutting down client...")
