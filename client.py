@@ -45,7 +45,7 @@ def read_result():
         print("\nThe result of the task with id ",selected," is:\n",ret_val)    # We print the result
     else:
         print("\nError: No job founf with id ",selected,". It is possible that the job has not finished yet.\n")    # We print the result
-
+ 
 
 def add_server():
     print ("******************************************")

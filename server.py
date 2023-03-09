@@ -5,7 +5,7 @@
 
 import json
 import redis    # We import the redis library
-import tasks    # We import the tasks library
+import meteo_utils    # We import the tasks library
 
 id = None       # We define the id variable
 conn = None     # We define the conn variable
@@ -15,13 +15,13 @@ conn = None     # We define the conn variable
 def process_meteo_data(meteo_data):
     global id
     global conn
-    response = tasks.process_meteo_data(meteo_data)
+    response = meteo_utils.process_meteo_data(meteo_data)
     return response
 
 def process_pollution_data(pollution_data):
     global id
     global conn
-    response = tasks.process_pollution_data(pollution_data)
+    response = meteo_utils.process_pollution_data(pollution_data)
     return response
 
 
@@ -40,6 +40,6 @@ def start_server(x):
        # We execute the task and we save the result in the database
 
        if (job == "process_meteo_data"):
-           conn.rpush(id, tasks.process_meteo_data(argument))
+           conn.rpush(id, meteo_utils.process_meteo_data(argument))
        elif (job == "process_pollution_data"):
-              conn.rpush(id, tasks.process_pollution_data(argument))
+              conn.rpush(id, meteo_utils.process_pollution_data(argument))
