@@ -3,7 +3,7 @@
 # Programador: David Tomas               #
 # -------------------------------------- #
 
-import server
+from ComunicaciónDirecta import Server
 import  multiprocessing as mp
 from xmlrpc.server import SimpleXMLRPCServer
 import redis
