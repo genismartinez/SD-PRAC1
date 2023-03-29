@@ -11,15 +11,5 @@ class Sensor:
 
     def __init__(self):
         self.rpcClient = xmlrpc.client.ServerProxy("http://localhost:8000")  # We create the server proxy
-    def sendData(self, data):
+    def sendData(self):
         print("Sending data to LoadBalancer from Sensor...")
-        multicall = xmlrpc.client.MultiCall(self.rpcClient)  # We create connection to the server
-        multicall.receive_data_wrap(data)
-
-
-if __name__ == "__main__":
-    sensor = Sensor()
-
-    while True:
-        sensor.sendData('')
-        time.sleep(1)

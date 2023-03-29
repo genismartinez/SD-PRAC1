@@ -3,7 +3,7 @@
 # This script is used to start the ComunicaciónDirecta application
 
 # Wake up Redis Server
-#redis-server --port 8002 &
+redis-server --port 8002 &
 
 # Wake up Servers
 for i in {8003..8005}
