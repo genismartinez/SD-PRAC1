@@ -4,19 +4,17 @@ import datetime
 
 from Sensor import Sensor
 from meteo_utils import MeteoDataDetector
-class PollutionSensor(Sensor):
-    def __init__(self):
-        super().__init__()
-        self.Detector = MeteoDataDetector()
-    def sendData(self):
-        super().sendData()
-        pollution_data = self.Detector.analyze_pollution()
-        pollution_data["timestamp"] = datetime.datetime.now()   # We add the timestamp to the data
-        self.rpcClient.receive_pollution_data(pollution_data)  # We send the data to the server
+class PollutionSensor(Sensor):  # We inherit from Sensor
+    def __init__(self, config):
+        super().__init__(config)      # We call the constructor of the parent class
+        self.Detector = MeteoDataDetector() # We create the detector
+        self.data = None    # We initialize the data to None
+    def generateData(self):
+        self.data = self.Detector.analyze_pollution()  # We get the pollution data
 
 if __name__ == "__main__":
-    sensor = PollutionSensor()
+    sensor = PollutionSensor({'host':'localhost', 'port':sys.argv[1]})  # We create the sensor
 
     while True:
-        time.sleep(float(sys.argv[1]))
-        sensor.sendData()
+        time.sleep(float(sys.argv[1]))  # We wait for the time specified in the arguments
+        sensor.sendData()   # We send the data

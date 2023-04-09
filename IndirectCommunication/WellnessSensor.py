@@ -6,17 +6,16 @@ import time
 import datetime
 class WellnessSensor(Sensor):
 
-    def __init__(self):
-        super().__init__()
-        self.detector = MeteoDataDetector()
-    def sendData(self):
-        super().sendData()
-        meteo_data = self.detector.analyze_air()
-        meteo_data["timestamp"] = datetime.datetime.now()  # We add the timestamp to the data
-        self.rpcClient.receive_meteo_data(meteo_data)  # We send the data to the server
+    def __init__(self, config):
+        super().__init__(config)     # We call the constructor of the parent class
+        self.detector = MeteoDataDetector() # We create the detector
+        self.data = None    # We initialize the data to None
+    def generateData(self):
+        self.data = self.detector.analyze_air() # We get the pollution data
+
 
 if __name__ == "__main__":
-    sensor = WellnessSensor()
+    sensor = WellnessSensor({'host':'localhost', 'port':sys.argv[1]})
 
     while True:
         time.sleep(float(sys.argv[1]))
