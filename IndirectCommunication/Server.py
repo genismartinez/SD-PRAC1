@@ -12,7 +12,7 @@ from MeteoConsumer import MeteoConsumer
 
 if __name__ == "__main__":
 
-    consumer = MeteoConsumer({'host':'localhost', 'port':8000}, 'workers', 'worker'+sys.argv[1])
+    consumer = MeteoConsumer({'host':'localhost', 'port':8000}, 'Sensor', 'Sensor')
 
     print("Server started.")
 

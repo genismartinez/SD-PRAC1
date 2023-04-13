@@ -16,7 +16,7 @@ class MeteoService:
     def process_pollution_data(self, data):
         print("Sending PollutionData to Redis from Server...")
         print("Data-> " + str(data))
-        pollutionData = PollutionData(data["co2"], data["timestamp"])
-        pollution = self.meteo_data_processor.process_pollution_data(pollutionData)
-        print("Pollution-> "+ str(pollution))
+        pollutionData = PollutionData(data["co2"], data["timestamp"])   # We create the PollutionData object
+        pollution = self.meteo_data_processor.process_pollution_data(pollutionData)   # We process the data
+        print("Pollution-> "+ str(pollution))   # We print the pollution
         return pollution
