@@ -16,11 +16,11 @@ class PollutionSensor(Publisher):  # We inherit from Sensor
         self.generateData()     # We generate the data
         self.data["timestamp"] = datetime.datetime.now()
         print("DATA PollutionSensor ->" + str(self.data))
-        super().publish('Sensor', 'Sensor', str(self.data))    # We call the sendData method of the parent class
+        super().publish('Sensor', 'Sensor', str(self.data), 'Sensor')    # We call the sendData method of the parent class
 
 if __name__ == "__main__":
     sensor = PollutionSensor({'host':'localhost', 'port':sys.argv[1]})  # We create the sensor
 
     while True:
-        time.sleep(float(sys.argv[1]))  # We wait for the time specified in the arguments
+        time.sleep(10)  # We wait for the time specified in the arguments
         sensor.sendData()   # We send the data

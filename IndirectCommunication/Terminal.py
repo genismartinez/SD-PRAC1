@@ -1,15 +1,15 @@
 import sys
 from xmlrpc.server import SimpleXMLRPCServer
 from TerminalDisplayer import TerminalDisplayer
+from TerminalConsumer import TerminalConsumer
 
 
 if __name__ == "__main__":
-    server = SimpleXMLRPCServer(("localhost", int(sys.argv[1])), allow_none=True)  # We create the server
-    terminal_displayer = TerminalDisplayer()
-    server.register_instance(terminal_displayer)  # We register the server
+
+    terminal = TerminalConsumer({"host": "localhost", "port": "8000"}, "Terminal", "Terminal", "Terminal-"+str(sys.argv[1]))
 
     print("Terminal started.")
     try:
-        server.serve_forever()  # We start the server
+        terminal.consume()
     except KeyboardInterrupt:
         print("Terminal stopped.")

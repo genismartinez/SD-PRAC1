@@ -2,11 +2,12 @@ import pika
 import abc
 
 class Consumer(abc.ABC):
-    def __init__(self, config, exchange_name, binding_key):
+    def __init__(self, config, exchange_name, binding_key, queue_name):
         self.config = config
         self.exchange_name = exchange_name
         self.binding_key = binding_key
         self.connection = self.create_connection()
+        self.queue_name = queue_name
 
     def create_connection(self):
         return pika.BlockingConnection(pika.ConnectionParameters(host=self.config['host'], port=self.config['port']))
@@ -22,7 +23,7 @@ class Consumer(abc.ABC):
         channel = self.connection.channel()
 
         channel.exchange_declare(exchange=self.exchange_name, exchange_type='direct')
-        result = channel.queue_declare(queue='Sensor', exclusive=False)
+        result = channel.queue_declare(queue=self.queue_name, exclusive=False)
         queue_name = result.method.queue
         channel.queue_bind(exchange=self.exchange_name, queue=queue_name, routing_key=self.binding_key)
 

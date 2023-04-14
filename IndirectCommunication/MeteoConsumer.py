@@ -58,5 +58,5 @@ class MeteoConsumer(Consumer):
 
 
 redis_client = redis.Redis(host='localhost', port=8002, db=0)   # We create the redis client
-consumer_name = MeteoConsumer({'host':'localhost', 'port':8000}, 'Sensor', 'Sensor')   # We create the consumer
+consumer_name = MeteoConsumer({'host':'localhost', 'port':8000}, 'Sensor', 'Sensor', 'Sensor')   # We create the consumer
 consumer_name.consume() # We start the consumer

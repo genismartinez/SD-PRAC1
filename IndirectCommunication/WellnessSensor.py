@@ -18,13 +18,13 @@ class WellnessSensor(Publisher):
         self.generateData()     # We generate the data
         self.data["timestamp"] = datetime.datetime.now()
         print("DATA WellnessSensor ->" + str(self.data))
-        super().publish('Sensor', 'Sensor', str(self.data))    # We call the sendData method of the parent class
+        super().publish('Sensor', 'Sensor', str(self.data), 'Sensor')    # We call the sendData method of the parent class
 
 
 if __name__ == "__main__":
     sensor = WellnessSensor({'host':'localhost', 'port':sys.argv[1]})
 
     while True:
-        time.sleep(float(sys.argv[1]))
+        time.sleep(10)
         sensor.sendData()
 
